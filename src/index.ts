@@ -1,15 +1,24 @@
-import express,{Express,Request,Response} from "express";
-import 'dotenv/config';
+import dotenv from 'dotenv';
+import connectDB from './db';
+import { app } from './app';
+import { connection } from 'mongoose';
 
-const app:Express = express();
-const port = process.env.PORT || 5000;
-app.use(express.json());
-
-app.get("/", (req:Request, res:Response) => {
-  res.send("Hello from workflo!");
-});
+dotenv.config({
+  path:'./.env'
+})
 
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
+connectDB().then(()=>{
+  app.on('error',(error)=>{
+    console.log("Error in server",error);
+    throw error;
+  })
+  app.listen(process.env.PORT,()=>{
+    console.log(`Server is running on port ${process.env.PORT}`);
+  })
+
+}).catch((err) =>{
+  console.log("MongoDB connection failed !",err);
+  
+})
+
