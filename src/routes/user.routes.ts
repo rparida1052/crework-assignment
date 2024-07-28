@@ -8,7 +8,7 @@ import { userRegistrationSchema } from "../schema/user.schema";
 
 // controllers
 router
-	.route('/register')
+	.route('/signup')
 	.post(validateData(userRegistrationSchema), registerUser);
 
 export default router;
