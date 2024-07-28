@@ -12,8 +12,10 @@ app.use(express.json({limit:"16kb"}));
 app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
 
-app.get("/", (req, res) => {
-  res.send("Hello world!");
-});
+//routes import
+import userRoute from "./routes/user.routes";
+
+// routes declare
+app.use("/api/v1/user",userRoute);
 
 export {app}
