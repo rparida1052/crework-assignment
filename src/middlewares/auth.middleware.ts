@@ -2,18 +2,20 @@ import { asyncHandler } from "../utils/asyncHandler";
 import { ApiError } from "../utils/ApiError";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { User } from "../models/user.model";
-import { NextFunction ,Request} from "express";
+
+import { NextFunction, Request, Response } from 'express';
 
 
 
-export const verifyJWT = asyncHandler(async (req:Request,_, next:NextFunction) => { 
+export const verifyJWT = asyncHandler(async (req:Request,res:Response, next:NextFunction) => { 
 try {
+    console.log("calling from verifyJWT");
         console.log(req.cookies?.accessToken);
         
         const token = req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer ","");
         
-        if(!token){
-            return new ApiError(401,"Unauthorized access");
+        if(!token || token == undefined){
+            throw new ApiError(401,"Unauthorized access");
         }
     
         const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET!);

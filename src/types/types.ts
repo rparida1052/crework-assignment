@@ -1,4 +1,4 @@
-import { Document,Model } from "mongoose";
+import { Document,Model, Types } from "mongoose";
 
 export  interface IUser extends Document {
 	_id:string;
@@ -22,4 +22,5 @@ export interface ITask extends Document {
     priority:"urgent" | "medium" | "low";
     deadline:Date;
     description:String;
+	user:Types.ObjectId;
 }

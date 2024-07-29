@@ -1,5 +1,5 @@
 import mongoose,{Schema,Model} from "mongoose";
-import { ITask, IUser } from "../types/types";
+import { ITask } from "../types/types";
 
 const taskSchema:Schema<ITask> = new Schema<ITask>({
     title:{
@@ -20,10 +20,17 @@ const taskSchema:Schema<ITask> = new Schema<ITask>({
         type:Date,
         required:[true,"Deadline is required"]
     },
+    description:{
+        type:String,
+    },
+    user:{
+        type:Schema.Types.ObjectId,
+        ref:"User"
+    }
 },
 {
     timestamps:true
 }
 )
 
-export const user:Model<ITask> = mongoose.model<ITask>("Task",taskSchema)
+export const Task:Model<ITask> = mongoose.model<ITask>("Task",taskSchema)
