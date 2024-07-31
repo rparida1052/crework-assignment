@@ -52,14 +52,10 @@ const CreateTaskForm = () => {
      const response = await axios.post(
        "https://crework-assignment-kkyk.onrender.com/api/v1/task/addTask",
        {
-         headers: {
-           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-         },
-            title: data.title,
-            status: data.status,
-            priority: data.priority,
-            deadline: data.deadline,
-            description: data.description,
+            ...data,
+        },
+        {
+            headers: {  Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
        }
      );
      console.log(response);

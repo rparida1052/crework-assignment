@@ -1,7 +1,6 @@
-
+"use client"
 import MainContent from '@/components/MainContent'
 import Sidebar from '@/components/Sidebar'
-import axios from 'axios';
 import { Menu } from 'lucide-react';
 import React from 'react';
 
