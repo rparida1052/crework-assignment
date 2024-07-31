@@ -5,7 +5,7 @@ import cookieParser from "cookie-parser";
 const app: Express = express();
 app.use(
 	cors({
-		origin: 'http://localhost:8000', // Your Next.js frontend URL
+		origin: '*', // 
 		methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
 		credentials: true, // Allow cookies to be sent with requests
 	})
