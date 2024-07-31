@@ -15,7 +15,7 @@ const TaskColumn = ({taskName,tasks}:TaskColumnProps) => {
         <img src="/column_icon.png" alt="" />
       </div>
       {tasks.map((task)=>{
-        return <Task task={task} />
+        return <Task task={task} key={task._id}/>
       })}
 
       <div className="m-3">

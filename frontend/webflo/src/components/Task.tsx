@@ -15,13 +15,13 @@ const Task = ({ task }: TaskProps) => {
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, quam.
       </p>
       {task.badge === "urgent" && (
-        <Badge className="bg-urgentRed p-2 rounded-lg">{badge}</Badge>
+        <Badge className="bg-urgentRed p-2 rounded-lg">{task.badge}</Badge>
       )}
       {task.badge === "medium" && (
-        <Badge className="bg-mediumOrange p-2 rounded-lg">{badge}</Badge>
+        <Badge className="bg-mediumOrange p-2 rounded-lg">{task.badge}</Badge>
       )}
       {task.badge === "low" && (
-        <Badge className="bg-limegreen p-2 rounded-lg">{badge}</Badge>
+        <Badge className="bg-limegreen p-2 rounded-lg">{task.badge}</Badge>
       )}
 
       <div className="flex gap-2 my-1">
