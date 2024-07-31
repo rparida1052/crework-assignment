@@ -20,13 +20,13 @@ const AuthForm:React.FC<AuthFormProps> = ({formType}) => {
 const router = useRouter();
 const onFormSubmit = async(data: z.infer<typeof formSchema>) => {
     try {
-        const response =  await axios.post(
-    		'http://localhost:8000/api/v1/user/login',
-    		{
-                email:data.email,
-                password:data.password
-    		}
-    	);
+        const response = await axios.post(
+          "https://crework-assignment-kkyk.onrender.com/api/v1/user/login",
+          {
+            email: data.email,
+            password: data.password,
+          }
+        );
         console.log(response);
         router.push('/dashboard');
     } catch (error) {
