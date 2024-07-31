@@ -2,6 +2,7 @@ import { PlusCircleIcon } from 'lucide-react';
 import Image from 'next/image'
 import React from 'react'
 import { Button } from './ui/button';
+import CreateNewTask from './CreateNewTask';
 
 const Sidebar = () => {
   return (
@@ -104,10 +105,7 @@ const Sidebar = () => {
                 </a>
               </div>
             </div>
-            <Button className="w-full bg-blueviolet flex gap-2">
-              Create new
-              <PlusCircleIcon />
-            </Button>
+           <CreateNewTask position='sidebar'/>
           </div>
         </div>
       </div>

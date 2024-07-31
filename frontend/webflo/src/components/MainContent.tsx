@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import TagsHeader from './TagsHeader';
 import ProgressColumns from './ProgressColumns';
 import { PlusCircle, Search, Share2Icon } from 'lucide-react';
@@ -7,22 +7,51 @@ import { Button } from './ui/button';
 import TaskColumn from './TaskColumn';
 import MultiDropable from './MultiDropable';
 import axios from 'axios';
+import { ITask } from '@/types/types';
+
 
 const MainContent = () => {
-
+  const [tasks, setTasks] = useState<{
+    todo: ITask[];
+    inProgress: ITask[];
+    underReview: ITask[];
+    finished: ITask[];
+  }>({
+    todo: [],
+    inProgress: [],
+    underReview: [],
+    finished: [],
+  });
+  const [loading, setLoading] = useState(false);
    const fetchTasks = async () => {
      try {
+      setLoading(true);
        console.log("fetching tasks");
 
        const response = await axios.get(
-         "crework-assignment-kkyk.onrender.com/api/v1/task/getTasks",
+         "https://crework-assignment-kkyk.onrender.com/api/v1/task/getTasks",
          {
            headers: {
-             "Authorization": `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmE2NWExYTM1ZGI0YWE3YzBkNTUyY2IiLCJlbWFpbCI6InJwYXJpZGExMDUyQGdtYWlsLmNvbSIsIm5hbWUiOiJSYWh1bCBwYXJpZGEiLCJpYXQiOjE3MjI0MDcwNDcsImV4cCI6MTcyMjQ5MzQ0N30.1IxfqT7mHUQzqLTomKFUV5rOqW9FtGdF06jpo01a3ck`,
+             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
            },
          }
        );
+        setLoading(false);
        console.log(response.data);
+       const data = response.data
+       const tasks:ITask[] = data.data;
+       const todo = tasks.filter((task) => task.status === "todo");
+       const inProgress = tasks.filter((task) => task.status === "inProgress");
+       const underReview = tasks.filter(
+          (task) => task.status === "underReview"
+        );
+       const finished = tasks.filter((task) => task.status === "finished");
+       setTasks({
+         todo,
+         inProgress,
+         underReview,
+         finished,
+       });
      } catch (error) {
        console.log(error);
      }
@@ -126,12 +155,16 @@ const MainContent = () => {
           </div>
         </div>
 
-        <div className="self-stretch rounded-lg bg-white flex flex-row  items-start justify-center py-4 pr-[15px] pl-4 gap-[16px]">
-          {/* <TaskColumn taskName="To do" />
-          <TaskColumn taskName="In progress" />
-          <TaskColumn taskName="Under review" />
-          <TaskColumn taskName="Finished" /> */}
-        </div>
+        {loading ? (
+          <div>Loading...</div>
+        ) : (
+          <div className="self-stretch rounded-lg bg-white flex flex-row  items-start justify-center py-4 pr-[15px] pl-4 gap-[16px]">
+            <TaskColumn taskName="To do" tasks={tasks.todo} />
+            <TaskColumn taskName="In Progress" tasks={tasks.inProgress} />
+            <TaskColumn taskName="Under Review" tasks={tasks.underReview} />
+            <TaskColumn taskName="Finished" tasks={tasks.finished} />
+          </div>
+        )}
       </section>
     </main>
   );

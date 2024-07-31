@@ -27,7 +27,8 @@ const onFormSubmit = async(data: z.infer<typeof formSchema>) => {
             password: data.password,
           }
         );
-        console.log(response);
+        console.log(response.data.data.accessToken);
+        localStorage.setItem('accessToken',response.data.data.accessToken);
         router.push('/dashboard');
     } catch (error) {
         console.log(error);

@@ -2,10 +2,12 @@ import React from 'react'
 import Task from './Task';
 import { Button } from './ui/button';
 import { Plus } from 'lucide-react';
+import { ITask } from '@/types/types';
+import CreateNewTask from './CreateNewTask';
 
 interface TaskColumnProps {
-    taskName: string;
-    tasks:any[];
+  taskName: string;
+  tasks: ITask[];
 }
 const TaskColumn = ({taskName,tasks}:TaskColumnProps) => {
   return (
@@ -14,14 +16,12 @@ const TaskColumn = ({taskName,tasks}:TaskColumnProps) => {
         <h3>{taskName}</h3>
         <img src="/column_icon.png" alt="" />
       </div>
-      {tasks.map((task)=>{
-        return <Task task={task} key={task._id}/>
+      {tasks.map((task,index)=>{
+        return <Task task={task} key={index}/>
       })}
 
       <div className="m-3">
-        <Button>
-          Create new <Plus />
-        </Button>
+        <CreateNewTask position='dashboard'/>
       </div>
     </div>
   );

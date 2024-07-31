@@ -10,7 +10,7 @@ import { NextFunction, Request, Response } from 'express';
 export const verifyJWT = asyncHandler(async (req:Request,res:Response, next:NextFunction) => { 
 try {
     console.log("calling from verifyJWT");
-        console.log(req.cookies?.accessToken);
+        console.log(req.header("Authorization"));
         
         const token = req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer ","");
         
